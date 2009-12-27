@@ -83,7 +83,7 @@ module ActsAsMongoRateable
   
   def self.included(receiver)
     receiver.class_eval do
-      many :ratings, :foreign_key => 'rateable_id', :dependent => :destroy
+      has_many :ratings, :foreign_key => 'rateable_id', :dependent => :destroy
       key :rating_stats, Hash, :default => {
         :total   => 0,
         :count   => 0,
