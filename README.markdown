@@ -1,8 +1,8 @@
 ActsAsMongoRateable (with weights!)
 ===================================
 
-A derivation of the old Rails+AR standby "acts_as_rateable," except now it works with MongoDB+MongoMapper
-and it has weighted ratings with bayesian averages as well as straight averages.
+Inspired by the old Rails+AR standby "acts_as_rateable," this rating plugin works with MongoDB+MongoMapper
+and has weighted ratings, as well as bayesian and straight averages, and some friendly class-level helpers.
 
 Intends to be super-performant by taking advantage of the benefits of document-driven db denormalization.
 
