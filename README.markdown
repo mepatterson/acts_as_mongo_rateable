@@ -18,33 +18,33 @@ Installation
 
 Install the plugin:
         
-  ./script/plugin install git://github.com/mepatterson/acts_as_mongo_rateable.git
+    ./script/plugin install git://github.com/mepatterson/acts_as_mongo_rateable.git
 
 Add the following 2 lines to the Model class that you want to make rateable:
 
-  include ActsAsMongoRateable
-  RATING_RANGE = (1..5)
+    include ActsAsMongoRateable
+    RATING_RANGE = (1..5)
 
 Obviously, change the rating range if you want rate on a 10-star system or a 14-star or whatever.
 
 Usage
 -----
 
-  class User
-    include MongoMapper::Document
-  end
+    class User
+      include MongoMapper::Document
+    end
 
-  class Widget
-    include ActsAsMongoRateable
-    RATING_RANGE = (1..5)
-    include MongoMapper::Document
-  end
+    class Widget
+      include ActsAsMongoRateable
+      RATING_RANGE = (1..5)
+      include MongoMapper::Document
+    end
 
-  widget = Widget.first
+    widget = Widget.first
 
 To rate it:
 
-  widget.rate(score, user, weight)
+    widget.rate(score, user, weight)
 
 - score must be an Integer within your RATING_RANGE
 - user is the User who is rating this widget
@@ -52,21 +52,21 @@ To rate it:
 
 Now try all these fun methods:
 
-  widget.average_rating
+    widget.average_rating
 
-  widget.bayesian_rating
+    widget.bayesian_rating
 
-  widget.rating_stats
+    widget.rating_stats
 
 And some useful class methods:
 
-  Widget.highest_rated(how_many)
+    Widget.highest_rated(how_many)
 
-  Widget.most_rated(how_many)
+    Widget.most_rated(how_many)
 
-  Widget.most_rated_by_authorities(how_many)
+    Widget.most_rated_by_authorities(how_many)
 
-  Widget.highest_bayesian_rated(how_many)
+    Widget.highest_bayesian_rated(how_many)
 
 ('how_many' is a limit and is optional.  i.e. Do you want a highest_rated list of 5, 10, 15 widgets?  
 Defaults to just 1 if you don't pass any argument.)
