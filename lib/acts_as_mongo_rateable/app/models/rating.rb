@@ -11,6 +11,11 @@ class Rating
       
   belongs_to :user
   
+  # Indices
+  ensure_index :user_id
+  ensure_index :rateable_id
+  
+  
   # == Various Instance Methods   
   def find_rated_document
     klass = rateable_class.constantize
