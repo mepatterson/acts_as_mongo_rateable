@@ -25,7 +25,7 @@ Add the following 2 lines to the Model class that you want to make rateable:
     include ActsAsMongoRateable
     RATING_RANGE = (1..5)
 
-Obviously, change the rating range if you want rate on a 10-star system or a 14-star or whatever.
+Obviously, change the rating range if you want to rate on a 10-star system or a 14-star or whatever.
 
 Usage
 -----
