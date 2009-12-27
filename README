@@ -16,7 +16,7 @@ Requirements
 To Install
 ==========
 
-./script/plugin install acts_as_mongo_rateable
+./script/plugin install git://github.com/mepatterson/acts_as_mongo_rateable.git
 
 Add the following 2 lines to the Model class that you want to make rateable:
 
