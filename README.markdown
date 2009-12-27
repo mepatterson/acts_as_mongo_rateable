@@ -71,6 +71,12 @@ And some useful class methods:
 ('how_many' is a limit and is optional.  i.e. Do you want a highest_rated list of 5, 10, 15 widgets?  
 Defaults to just 1 if you don't pass any argument.)
 
+Future
+------
+- Tests (I have tests in the project I cut this from, but they need to be extracted out and I'm lazy)
+- More helper methods
+- Performance improvements as I come across the need
+- Investigate using map/reduce to improve the efficiency of the bayesian calc (?)
 
 Thanks To...
 ------------
