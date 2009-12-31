@@ -1,20 +1,19 @@
 class Rating
   include MongoMapper::Document
   
-  key :user_id,         ObjectId
-  key :rateable_id,     ObjectId
-  key :rateable_class,  String
-  key :value,           Integer
+  key :user_id,         ObjectId, :required => true
+  key :rateable_id,     ObjectId, :required => true
+  key :rateable_class,  String,   :required => true
+  key :value,           Integer,  :required => true
   key :previous_value,  Integer,  :default => 0
   key :weight,          Integer,  :default => 1
   timestamps!
-      
-  belongs_to :user
   
-  # Indices
   ensure_index :user_id
   ensure_index :rateable_id
+  ensure_index :rateable_class
   
+  belongs_to :user
   
   # == Various Instance Methods   
   def find_rated_document

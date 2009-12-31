@@ -15,7 +15,12 @@ module ActsAsMongoRateable
     
     # TO DO this is awful, awful, awful!  make it faster using map/reduce
     def highest_bayesian_rated(limit=1)
-      all.sort_by{|doc| doc.bayesian_rating}.reverse[0,limit]
+      stats = all({:select => 'id, rating_stats'})
+      all.sort_by do |doc| 
+        rating = doc.bayesian_rating(stats)
+        doc.rating_stats['bayesian_rating'] = rating
+        rating
+      end.reverse[0,limit]
     end
     
   end
@@ -30,22 +35,19 @@ module ActsAsMongoRateable
       rating_stats['average']
     end
     
-    def bayesian_rating
-      stats = self.class.all({:select => 'id, rating_stats'})
+    def bayesian_rating(stats=nil)
+      stats ||= self.class.all({:select => 'id, rating_stats'})
       system_counts = stats.collect{|p| {p.id, p.rating_stats['count']}}
       avg_rating = stats.collect{|p| p.rating_stats['average'] || 0 }.sum / stats.size.to_f
       avg_num_votes = system_counts.inject(0){|sum, r| sum += r.to_a.flatten[1] } / system_counts.size.to_f
       my_rating = rating_stats['average'] || 0
       my_count = rating_stats['count']
-      # puts "***** calculated: avgvotes = #{avg_num_votes}, avgrating = #{avg_rating}, my_count = #{my_count}, my_rating = #{my_rating}"
       ( (avg_num_votes * avg_rating) + (my_count * my_rating) ) / (avg_num_votes + my_count)
     end
         
     def delete_ratings_by_user(user)
       return false unless user
       return 0 if ratings.blank?
-      # ratings.reject!{|r| r.user_id.to_s == user.id.to_s}
-      # save!
       ratings.delete_all(:user_id => user.id.to_s)
       reload
     end
@@ -83,7 +85,7 @@ module ActsAsMongoRateable
   
   def self.included(receiver)
     receiver.class_eval do
-      has_many :ratings, :foreign_key => 'rateable_id', :dependent => :destroy
+      many :ratings, :foreign_key => 'rateable_id', :dependent => :destroy
       key :rating_stats, Hash, :default => {
         :total   => 0,
         :count   => 0,
