@@ -8,12 +8,15 @@ class Rating
   key :previous_value,  Integer,  :default => 0
   key :weight,          Integer,  :default => 1
   timestamps!
-  
+
   ensure_index :user_id
   ensure_index :rateable_id
   ensure_index :rateable_class
-  
+  ensure_index :created_at
+    
   belongs_to :user
+  
+
   
   # == Various Instance Methods   
   def find_rated_document
