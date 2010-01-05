@@ -91,7 +91,7 @@ module ActsAsMongoRateable
         :count   => 0,
         :sum_of_weights => 0,
         :average => nil
-      }      
+      }
     end
     receiver.extend         ClassMethods
     receiver.send :include, InstanceMethods
