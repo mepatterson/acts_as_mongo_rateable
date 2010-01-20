@@ -49,7 +49,7 @@ module ActsAsMongoRateable
       return false unless user
       return 0 if ratings.blank?
       ratings.delete_all(:user_id => user.id.to_s)
-      reload
+      self.reload
     end
     
     def rate(value, user = nil, weight = 1)
@@ -63,7 +63,7 @@ module ActsAsMongoRateable
         :weight => weight
         })
       self.ratings << r
-      reload
+      self.reload
       r
     end
     
