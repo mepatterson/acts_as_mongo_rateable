@@ -36,6 +36,7 @@ module ActsAsMongoRateable
     end
     
     def bayesian_rating(stats=nil)
+      return 0 if rating_stats['count'] == 0
       stats ||= self.class.all({:select => 'id, rating_stats'})
       system_counts = stats.map{ |p| [ p.id.to_s, p.rating_stats['count'] ] }
       avg_rating = stats.map{|p| p.rating_stats['average'] || 0 }.sum / stats.size.to_f
