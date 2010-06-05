@@ -1,4 +1,6 @@
+require 'rubygems'
 require 'rake'
+require 'echoe'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
@@ -20,4 +22,14 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+
+Echoe.new('acts_as_mongo_rateable', '0.2.0') do |p|
+  p.description    = "A ratings system for Rails apps using MongoDB, with bayesian and straight averages, and weighting."
+  p.url            = "http://github.com/mepatterson/acts_as_mongo_rateable"
+  p.author         = "M. E. Patterson"
+  p.email          = "madraziel @nospam@ gmail.com"
+  p.ignore_pattern = ["tmp/*", "script/*"]
+  p.development_dependencies = []
 end
