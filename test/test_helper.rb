@@ -12,7 +12,7 @@ class ActiveSupport::TestCase
   # Drop all columns after each test case.
   def teardown
     MongoMapper.database.collections.each do |coll|
-      coll.drop  
+      coll.remove  
     end
   end
  
